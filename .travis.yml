@@ -1,2 +1,3 @@
-scripts:
-- ./stats.sh
+language: c
+build:
+- make
