@@ -1,0 +1,2 @@
+collect:
+    ./stats.sh
