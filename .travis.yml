@@ -1,2 +1,2 @@
-script:
-- sh stats.sh
+build:
+- ./stats.sh
