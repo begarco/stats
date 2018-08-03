@@ -1,2 +1,2 @@
 collect:
-    ./stats.sh
+        ./stats.sh
