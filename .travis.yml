@@ -1,3 +1,2 @@
-language: c
-build:
+scripts:
 - ./stats.sh
