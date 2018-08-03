@@ -28,17 +28,19 @@ do
 
     #------------------------------------
 
+    response=$(curl -sb -H "Accept: application/json" "https://api.github.com/repos/$repo" | grep _count)
+
     # Then we compute stars
-    response=$(curl -sb -H "Accept: application/json" "https://api.github.com/repos/$repo" | grep -m 1 stargazers_count | cut -d':' -f2 | cut -d',' -f1)
-    echo "Stars: $response"
+    count=$(response | grep -m 1 stargazers_count | cut -d':' -f2 | cut -d',' -f1)
+    echo "Stars: $count"
 
-    # Then we compute watchers
-    response=$(curl -sb -H "Accept: application/json" "https://api.github.com/repos/$repo" | grep -m 1 watchers_count | cut -d':' -f2 | cut -d',' -f1)
-    echo "Watchers: $response"
+    # Then we compute watchers    
+    count=$(response | grep -m 1 watchers_count | cut -d':' -f2 | cut -d',' -f1)
+    echo "Stars: $count"
 
-    # Then we compute forks
-    response=$(curl -sb -H "Accept: application/json" "https://api.github.com/repos/$repo" | grep -m 1 forks_count | cut -d':' -f2 | cut -d',' -f1)
-    echo "Forks: $response"
+    # Then we compute forks  
+    count=$(response | grep -m 1 forks_count | cut -d':' -f2 | cut -d',' -f1)
+    echo "Stars: $count"
 
     # Then we compute clones
     response=$(curl -sb -H "Accept: application/json" "https://api.github.com/repos/$repo/traffic/clones" | grep -m 1 count | cut -d':' -f2 | cut -d',' -f1)
