@@ -1,3 +1,5 @@
 language: c
 sudo: false # only for faster builds
-script: ./stats.sh
+script: 
+  - chmod +x stats.sh
+  - ./stats.sh
