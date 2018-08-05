@@ -1,7 +1,7 @@
 
 var loadJSON = function(file) {
     var response = undefined;
-    $.getJSON("test.json", function(json) {
+    $.getJSON(file, function(json) {
         response = json;
         console.log(response);
     });
@@ -10,3 +10,4 @@ var loadJSON = function(file) {
 }
 
 loadJSON('../data/projects.json');
+loadJSON('data/projects.json');
