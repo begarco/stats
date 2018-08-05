@@ -13,6 +13,7 @@ script:
   - git remote add origin https://${GITHUB_TOKEN}@github.com/begarco/stats.git > /dev/null 2>&1
   - BEGIN=`ls -la data | wc -l`
   - python src/download_stats.py $GITHUB_TOKEN
+  - echo "projects-"`date +%Y-%m-%d`".json" > latest
   - END=`ls -la data | wc -l`
   - ls -la data
   - if [ $BEGIN -ne $END ]; then git add data/*; fi
