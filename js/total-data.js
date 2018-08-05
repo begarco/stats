@@ -18,8 +18,8 @@ var loadFile = function(file) {
 }
 
 
-var latestData = loadFile('../data/latest');
-var projects = loadJSON('../data/'+latestData);
+var latestData = loadFile('data/latest');
+var projects = loadJSON('data/'+latestData);
 
 $("#projects_count").text(function(index, old) {
     return projects.length;
