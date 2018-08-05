@@ -1,5 +1,12 @@
-language: c
+language: python
 sudo: false # only for faster builds
 script: 
-  - chmod +x stats.sh
-  - ./stats.sh
+  - chmod +x src/download_stats.py
+  - python src/download_stats.py GITHUB_TOKEN
+  - git config --global user.email "travis@travis-ci.org"
+  - git config --global user.name "Travis CI"
+  - git add data
+  - git commit -m "[BUILD \#$TRAVIS_BUILD_NUMBER] Commitment of new data"
+  - git remote rm origin
+  - git remote add origin https://${GITHUB_TOKEN}@github.com/begarco/stats.git > /dev/null 2>&1
+  - git push --quiet --set-upstream origin
