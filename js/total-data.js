@@ -9,5 +9,5 @@ var loadJSON = function(file) {
     return response;
 }
 
-loadJSON('../data/projects.json');
-loadJSON('data/projects.json');
+loadJSON('../data/projects-2018-08-05.json');
+loadJSON('data/projects-2018-08-05.json');
