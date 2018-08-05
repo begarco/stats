@@ -55,6 +55,8 @@ for project in projects:
     request = GITHUB_API+'repos/'+project['full_name']+'/traffic/views'
     project['views'] = get_json(request, GITHUB_TOKEN)
 
+compute_download_count(projects)
+
 now = datetime.datetime.now()
 date = now.strftime("%Y-%m-%d")
 save_json('data/projects-'+date+'.json', projects)

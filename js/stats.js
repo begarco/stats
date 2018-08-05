@@ -77,7 +77,7 @@ var computeProjectsMenu = function(projects) {
 var computeProjectsStatsTable = function(projects) {
     var result = "";
     projects.forEach(function(project, key, map){
-        result = result + "<tr><td>"+project['name']+"</td></tr>";
+        result = result + "<tr><td>"+project['name']+"</td>";
         result = result + "<td>"+project['stargazers_count']+"</td>";
         result = result + "<td>"+project['watchers_count']+"</td>";
         result = result + "<td>"+project['download_count']+"</td>";
