@@ -7,13 +7,14 @@ install:
 
 script: 
   - chmod +x src/download_stats.py
-  - python src/download_stats.py $GITHUB_TOKEN
-  - ls -la
-  - ls -la data
   - git config --global user.email "travis@travis-ci.org"
   - git config --global user.name "Travis CI"
-  - git add data/*
-  - git commit -m "[BUILD $TRAVIS_BUILD_NUMBER] Commitment of new data"
   - git remote rm origin
   - git remote add origin https://${GITHUB_TOKEN}@github.com/begarco/stats.git > /dev/null 2>&1
-  - git push origin HEAD:master
+  - BEGIN=`ls -la data | wc -l`
+  - python src/download_stats.py $GITHUB_TOKEN
+  - END=`ls -la data | wc -l`
+  - ls -la data
+  - if [ $BEGIN -ne $END ]; then git add data/*; fi
+  - if [ $BEGIN -ne $END ]; then git commit -m "[BUILD $TRAVIS_BUILD_NUMBER] Commitment of new data"; fi
+  - if [ $BEGIN -ne $END ]; then git push origin HEAD:master; fi
