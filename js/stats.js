@@ -44,11 +44,7 @@ var computeProjectsStars = function(projects) {
 var computeProjectsDownloads = function(projects) {
     var result = 0;
     projects.forEach(function(project, key, map){
-        project['releases'].forEach(function(release, key, map){
-            release['assets'].forEach(function(asset, key, map){
-                result = result + parseInt(asset['download_count']);
-            });
-        });
+        result = result + parseInt(project['download_count']);
     });
     return result;
 };
@@ -75,6 +71,21 @@ var computeProjectsMenu = function(projects) {
     return result;
 };
 
+/**
+    Compute the table of all projects stats.
+**/
+var computeProjectsStatsTable = function(projects) {
+    var result = "";
+    projects.forEach(function(project, key, map){
+        result = result + "<tr><td>"+project['name']+"</td></tr>";
+        result = result + "<td>"+project['stargazers_count']+"</td>";
+        result = result + "<td>"+project['watchers_count']+"</td>";
+        result = result + "<td>"+project['download_count']+"</td>";
+        result = result + "<td>"+project['forks_count']+"</td>";
+        result = result + "<td>"+project['updated_at']+"</td></tr>";
+    });
+    return result;
+};
 
 /**
     MAIN PROGRAM EXECUTION
@@ -100,6 +111,9 @@ var main = function() {
             });
             $("#watchers_count").text(function(index, old) {
                 return computeProjectsWatchers(projects);
+            });
+            $("#stats-table").html(function(index, old) {
+                return computeProjectsStatsTable(projects);
             });
         });
     });

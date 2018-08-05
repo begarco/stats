@@ -4,6 +4,12 @@ import sys
 import datetime
 
 
+GITHUB_TOKEN = None
+GITHUB_API = 'https://api.github.com/'
+GITHUB_OWNER_TYPE = 'org'
+GITHUB_OWNER_NAME = 'lequal'
+
+
 def get_json(url, token):
     headers = {}
     if token is not None:
@@ -22,10 +28,17 @@ def load_json(file_path):
         return json.load(data)
 
 
-GITHUB_TOKEN = None
-GITHUB_API = 'https://api.github.com/'
-GITHUB_OWNER_TYPE = 'org'
-GITHUB_OWNER_NAME = 'lequal'
+def compute_download_count(projects):
+    for project in projects:
+        project_count = 0
+        for release in projects['releases']:
+            release_count = 0
+            for asset in release['assets']:
+                release_count = release_count + asset['download_count']
+            release['download_count'] = release_count
+            project_count = project_count + release_count
+        project['download_count'] = project_count
+
 
 if len(sys.argv) > 1:
     GITHUB_TOKEN = sys.argv[1]
@@ -37,7 +50,7 @@ for project in projects:
     project['releases'] = get_json(request, GITHUB_TOKEN)
 
     request = GITHUB_API+'repos/'+project['full_name']+'/traffic/clones'
-    project['traffic'] = get_json(request, GITHUB_TOKEN)
+    project['clones'] = get_json(request, GITHUB_TOKEN)
 
     request = GITHUB_API+'repos/'+project['full_name']+'/traffic/views'
     project['views'] = get_json(request, GITHUB_TOKEN)
