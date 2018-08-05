@@ -31,7 +31,7 @@ def load_json(file_path):
 def compute_download_count(projects):
     for project in projects:
         project_count = 0
-        for release in projects['releases']:
+        for release in project['releases']:
             release_count = 0
             for asset in release['assets']:
                 release_count = release_count + asset['download_count']
