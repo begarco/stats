@@ -2,7 +2,9 @@ language: python
 sudo: false # only for faster builds
 script: 
   - chmod +x src/download_stats.py
-  - python src/download_stats.py GITHUB_TOKEN
+  - python src/download_stats.py $GITHUB_TOKEN
+  - ls -la
+  - ls -la data
   - git config --global user.email "travis@travis-ci.org"
   - git config --global user.name "Travis CI"
   - git add data
