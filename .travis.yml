@@ -1,5 +1,10 @@
 language: python
+python: "3.7"
 sudo: false # only for faster builds
+
+install:
+  - pip install requests
+
 script: 
   - chmod +x src/download_stats.py
   - python src/download_stats.py $GITHUB_TOKEN
