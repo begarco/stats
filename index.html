@@ -38,18 +38,6 @@
         <i class="fas fa-bars"></i>
       </button>
 
-      <!-- Navbar Search
-      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form> -->
-
     </nav>
 
     <div id="wrapper">
@@ -92,10 +80,10 @@
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-folder"></i>
                   </div>
-                  <div class="mr-5"><span id="projects_count"></span> PROJECTS</div>
+                  <div class="mr-5"><span id="projects_count" class="digits"></span></div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
+                  <span class="float-left">PROJECTS</span>
                   <span class="float-right">
                     <i class="fas fa-angle-right"></i>
                   </span>
@@ -108,14 +96,11 @@
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-star"></i>
                   </div>
-                  <div class="mr-5"><span id="stars_count"></span> STARS</div>
+                  <div class="mr-5"><span id="stars_count" class="digits"></span></div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
-                  <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
-                </a>
+                <span class="card-footer text-white clearfix small z-1">
+                  <span class="float-left">STARS</span>
+                </span>
               </div>
             </div>
             <div class="col-xl-3 col-sm-6 mb-3">
@@ -124,14 +109,11 @@
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-download"></i>
                   </div>
-                  <div class="mr-5"><span id="downloads_count"></span> DOWNLOADS</div>
+                  <div class="mr-5"><span id="downloads_count" class="digits"></span></div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
-                  <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
-                </a>
+                <span class="card-footer text-white clearfix small z-1">
+                  <span class="float-left">DOWNLOADS</span>
+                </span>
               </div>
             </div>
             <div class="col-xl-3 col-sm-6 mb-3">
@@ -140,14 +122,11 @@
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-eye"></i>
                   </div>
-                  <div class="mr-5"><span id="watchers_count"></span> WATCHERS</div>
+                  <div class="mr-5"><span id="watchers_count" class="digits"></span></div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
-                  <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
-                </a>
+                <span class="card-footer text-white clearfix small z-1">
+                  <span class="float-left">WATCHERS</span>
+                </span>
               </div>
             </div>
           </div>
@@ -159,7 +138,7 @@
               Repositories statistics</div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Repository</th>
@@ -227,9 +206,7 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
 
-    <!-- Demo scripts for this page-->
-    <script src="js/demo/datatables-demo.js"></script>
-    <script src="js/demo/chart-area-demo.js"></script>
+    <!-- Data scripts for this page-->
     <script src="js/stats.js"></script>
 
   </body>
