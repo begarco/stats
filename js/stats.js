@@ -4,7 +4,6 @@
 var loadJSON = function(file) {
     return $.getJSON(file, function(json) {
         response = json;
-        console.log(response);
         return response;
     });
 }
@@ -15,7 +14,6 @@ var loadJSON = function(file) {
 var loadFile = function(file) {
     return $.get(file, function(content) {
         response = content;
-        console.log(response);
         return response;
     });
 }
@@ -50,12 +48,12 @@ var computeProjectsDownloads = function(projects) {
 };
 
 /**
-    Compute the watchers number of projects.
+    Compute the forks number by project.
 **/
-var computeProjectsWatchers = function(projects) {
+var computeProjectsForks = function(projects) {
     var result = 0;
     projects.forEach(function(project, key, map){
-        result = result + parseInt(project['watchers_count']);
+        result = result + parseInt(project['forks_count']);
     });
     return result;
 };
@@ -77,12 +75,12 @@ var computeProjectsMenu = function(projects) {
 var computeProjectsStatsTable = function(projects) {
     var result = "";
     projects.forEach(function(project, key, map){
-        result = result + "<tr><td><a href='"+project['url']+"'>"+project['name']+"</a></td>";
+        result = result + "<tr><td><a href='"+project['html_url']+"'>"+project['name']+"</a></td>";
         result = result + "<td>"+project['stargazers_count']+"</td>";
         result = result + "<td>"+project['watchers_count']+"</td>";
         result = result + "<td>"+project['download_count']+"</td>";
         result = result + "<td>"+project['forks_count']+"</td>";
-        result = result + "<td>"+project['updated_at']+"</td></tr>";
+        result = result + "<td>"+project['updated_at'].replace('T', ' ').replace('Z', ' ')+"</td></tr>";
     });
     return result;
 };
@@ -109,11 +107,14 @@ var main = function() {
             $("#downloads_count").text(function(index, old) {
                 return computeProjectsDownloads(projects);
             });
-            $("#watchers_count").text(function(index, old) {
-                return computeProjectsWatchers(projects);
+            $("#forks_count").text(function(index, old) {
+                return computeProjectsForks(projects);
             });
             $("#stats-table").html(function(index, old) {
                 return computeProjectsStatsTable(projects);
+            });
+            $(".last-update").html(function(index, old) {
+                return last.substring('projects-'.length, last.length-7);
             });
         });
     });
