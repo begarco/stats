@@ -29,9 +29,11 @@ def compute_count(projects, field):
     return download_count
 
 
-class History:
-    labels = []
-    downloads = []
+def compute_var(array):
+    result = []
+    for i in range(len(array)-1):
+        result.append(array[i+1]-array[i])
+    return result
 
 
 now = datetime.datetime.now()
@@ -39,7 +41,8 @@ latestFile = open('data/latest', 'r')
 latestContent = latestFile.read().strip()
 latestDate = datetime.datetime.strptime(latestContent, 'projects-%Y-%m-%d.json')
 latestFile.close()
-history = {'labels': [], 'downloads': [], 'stars': [], 'forks': []}
+history = {'labels': [], 'downloads': [], 'stars': [], 'forks': [],
+           'downloads_var': [], 'stars_var': [], 'forks_var': []}
 
 DATA_SIZE = len(glob.glob1('data', "projects*"))
 
@@ -60,5 +63,8 @@ history['labels'].reverse()
 history['downloads'].reverse()
 history['stars'].reverse()
 history['forks'].reverse()
+history['downloads_var'] = compute_var(history['downloads'])
+history['stars_var'] = compute_var(history['stars'])
+history['forks_var'] = compute_var(history['forks'])
 
 save_json('data/history.json', history)
