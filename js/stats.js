@@ -114,7 +114,8 @@ var main = function() {
                 return computeProjectsStatsTable(projects);
             });
             $(".last-update").html(function(index, old) {
-                return last.substring('projects-'.length, last.length-7);
+                myDate = last.split('.')[0].split('-');
+                return myDate[1]+'/'+myDate[2]+'/'+myDate[3];
             });
         });
     });
