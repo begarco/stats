@@ -36,13 +36,24 @@ def compute_var(array):
     return result
 
 
+def init_history(latest):
+    history_local = {'labels': [], 'downloads': [], 'stars': [], 'forks': [],
+                     'downloads_var': [], 'stars_var': [], 'forks_var': [], 'projects': {}}
+    projects_local = load_json('data/'+latest)
+
+    for project in projects_local:
+        history_local['projects'][project['name']] = {'labels': [], 'downloads': [], 'stars': [], 'forks': [],
+                                                      'downloads_var': [], 'stars_var': [], 'forks_var': []}
+
+    return history_local
+
+
 now = datetime.datetime.now()
 latestFile = open('data/latest', 'r')
 latestContent = latestFile.read().strip()
 latestDate = datetime.datetime.strptime(latestContent, 'projects-%Y-%m-%d.json')
 latestFile.close()
-history = {'labels': [], 'downloads': [], 'stars': [], 'forks': [],
-           'downloads_var': [], 'stars_var': [], 'forks_var': []}
+history = init_history(latestContent)
 
 DATA_SIZE = len(glob.glob1('data', "projects*"))
 
@@ -59,6 +70,12 @@ for day in range(DATA_SIZE):
     history['stars'].append(stars)
     history['forks'].append(forks)
 
+    for project in projects:
+        history['projects'][project['name']]['labels'].append(currentDate)
+        history['projects'][project['name']]['downloads'].append(project['download_count'])
+        history['projects'][project['name']]['stars'].append(project['stargazers_count'])
+        history['projects'][project['name']]['forks'].append(project['forks_count'])
+
 history['labels'].reverse()
 history['downloads'].reverse()
 history['stars'].reverse()
@@ -66,5 +83,14 @@ history['forks'].reverse()
 history['downloads_var'] = compute_var(history['downloads'])
 history['stars_var'] = compute_var(history['stars'])
 history['forks_var'] = compute_var(history['forks'])
+
+for project in history['projects']:
+    history['projects'][project]['labels'].reverse()
+    history['projects'][project]['downloads'].reverse()
+    history['projects'][project]['stars'].reverse()
+    history['projects'][project]['forks'].reverse()
+    history['projects'][project]['downloads_var'] = compute_var(history['projects'][project]['downloads'])
+    history['projects'][project]['stars_var'] = compute_var(history['projects'][project]['stars'])
+    history['projects'][project]['forks_var'] = compute_var(history['projects'][project]['forks'])
 
 save_json('data/history.json', history)

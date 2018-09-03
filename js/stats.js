@@ -64,7 +64,7 @@ var computeProjectsForks = function(projects) {
 var computeProjectsMenu = function(projects) {
     var result = "";
     projects.forEach(function(project, key, map){
-        result = result + "<a class='dropdown-item' href='#"+project['id']+"'>"+project['name']+"</a>";
+        result = result + "<a class='dropdown-item' href='#"+project['name']+"'>"+project['name']+"</a>";
     });
     return result;
 };

@@ -15,6 +15,18 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 var historyPromise = loadJSON('data/history.json');
 
+var tmpl = `
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-chart-area"></i>
+        namename
+    </div>
+    <div class="card-body">
+        <canvas id="idid" width="100%" height="30"></canvas>
+    </div>
+</div>
+`;
+
 $.when(historyPromise).done(function(history){
 
     // Maximum value
@@ -180,4 +192,96 @@ $.when(historyPromise).done(function(history){
         }
       }
     });
+
+    // Projects charts
+    ctx = document.getElementById("projectCharts");
+    for(project_name in history['projects']) {
+        project = history['projects'][project_name];
+        projects_html = tmpl;
+        projects_html = projects_html.replace('namename', project_name);
+        projects_html = projects_html.replace('idid', project_name);
+
+        ctx.innerHTML = ctx.innerHTML + projects_html;
+    }
+    for(project_name in history['projects']) {
+        project = history['projects'][project_name];
+        ctx = document.getElementById(project_name);
+        myLineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: project['labels'],
+            datasets: [
+            {
+              label: "New Stars",
+              lineTension: 0.3,
+              backgroundColor: "rgba(216,216,17,0.2)",
+              borderColor: "rgba(216,216,17,1)",
+              pointRadius: 5,
+              pointBackgroundColor: "rgba(216,216,17,1)",
+              pointBorderColor: "rgba(255,255,255,0.8)",
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: "rgba(216,216,17,1)",
+              pointHitRadius: 50,
+              pointBorderWidth: 2,
+              data: project['stars_var'],
+            },
+            {
+              label: "New Downloads",
+              lineTension: 0.3,
+              backgroundColor: "rgba(2,216,117,0.2)",
+              borderColor: "rgba(2,216,117,1)",
+              pointRadius: 5,
+              pointBackgroundColor: "rgba(2,216,117,1)",
+              pointBorderColor: "rgba(255,255,255,0.8)",
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: "rgba(2,216,117,1)",
+              pointHitRadius: 50,
+              pointBorderWidth: 2,
+              data: project['downloads_var'],
+            },
+            {
+              label: "New Forks",
+              lineTension: 0.3,
+              backgroundColor: "rgba(216,2,117,0.2)",
+              borderColor: "rgba(216,2,117,1)",
+              pointRadius: 5,
+              pointBackgroundColor: "rgba(216,2,117,1)",
+              pointBorderColor: "rgba(255,255,255,0.8)",
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: "rgba(216,2,117,1)",
+              pointHitRadius: 50,
+              pointBorderWidth: 2,
+              data: project['forks_var'],
+            }],
+          },
+          options: {
+            scales: {
+              xAxes: [{
+                time: {
+                  unit: 'date'
+                },
+                gridLines: {
+                  display: false
+                },
+                ticks: {
+                  maxTicksLimit: 7
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: maxi_var,
+                  maxTicksLimit: 5
+                },
+                gridLines: {
+                  color: "rgba(0, 0, 0, .125)",
+                }
+              }],
+            },
+            legend: {
+              display: true
+            }
+          }
+        });
+    }
 });
