@@ -7,7 +7,7 @@ import datetime
 GITHUB_TOKEN = None
 GITHUB_API = 'https://api.github.com/'
 GITHUB_OWNER_TYPE = 'org'
-GITHUB_OWNER_NAME = 'lequal'
+GITHUB_OWNER_NAME = 'cnescatlab'
 
 
 def get_json(url, token):
