@@ -17,6 +17,7 @@ script:
   - python src/history.py
   - END=`ls -la data | wc -l`
   - ls -la data
+  - echo "$BEGIN and $END"
   - if [ $BEGIN -ne $END ]; then git add data/*; fi
   - if [ $BEGIN -ne $END ]; then git commit -m "[BUILD $TRAVIS_BUILD_NUMBER] Commitment of new data"; fi
   - if [ $BEGIN -ne $END ]; then git push origin HEAD:master; fi
